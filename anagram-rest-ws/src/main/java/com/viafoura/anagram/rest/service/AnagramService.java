@@ -16,12 +16,25 @@ import com.viafoura.anagram.rest.model.PermuteAnagramsResult;
 import com.viafoura.anagram.rest.model.PropertiesHolder;
 import com.viafoura.anagram.rest.validator.AnagramValidator;
 
+/**
+ * @author imran Date 26-02-2020
+ *
+ *         This is a service class which handles the business logic.
+ */
 @Service
 public class AnagramService {
 
 	@Autowired
 	PropertiesHolder propertiesHolder;
 
+	/**
+	 * @param string1
+	 * @param string2
+	 * @return
+	 * @throws AnagramExcetion
+	 * 
+	 *                         This method compares if 2 strings are anagrams.
+	 */
 	public CompareAnagramResult validateAndCompareAnagram(String string1, String string2) throws AnagramExcetion {
 		if (AnagramValidator.validateNotNull(string1) && AnagramValidator.validateNotNull(string2)) {
 			AnagramValidator.isValidPattern(getProperties(), string1, string2);
@@ -33,6 +46,14 @@ public class AnagramService {
 		}
 	}
 
+	/**
+	 * @param string1
+	 * @return
+	 * @throws AnagramExcetion
+	 * 
+	 *                         This method permutes all possible combinations of
+	 *                         anagrams for the given string.
+	 */
 	public PermuteAnagramsResult validateAndPermuteAnagram(String string1) throws AnagramExcetion {
 		if (AnagramValidator.validateNotNull(string1)) {
 			PermuteAnagramsResult anagramsResult = new PermuteAnagramsResult();
@@ -44,6 +65,13 @@ public class AnagramService {
 		}
 	}
 
+	/**
+	 * @param string
+	 * @return
+	 * @throws AnagramExcetion
+	 * 
+	 *                         This method contains logic for permutation of anagram
+	 */
 	public List<String> permuteAnagrams(String string) throws AnagramExcetion {
 		List<String> list = new ArrayList<String>();
 		if (string.length() > 1) {
@@ -62,6 +90,13 @@ public class AnagramService {
 		return list;
 	}
 
+	/**
+	 * @param string1
+	 * @param string2
+	 * @return
+	 * 
+	 *         This method contains comparison logic to find is anagrams
+	 */
 	public boolean isAnagram(String string1, String string2) {
 		Map<Character, Integer[]> map = new HashMap<Character, Integer[]>();
 
@@ -111,6 +146,11 @@ public class AnagramService {
 		return true;
 	}
 
+	/**
+	 * @return properties
+	 * 
+	 *         Loads the properties file from the wrapper.
+	 */
 	public Properties getProperties() {
 		return propertiesHolder.getProperties();
 	}
