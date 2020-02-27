@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.viafoura.anagram.rest.exception.AnagramExcetion;
+import com.viafoura.anagram.rest.exception.AnagramException;
 import com.viafoura.anagram.rest.model.CompareAnagramResult;
 import com.viafoura.anagram.rest.model.PermuteAnagramsResult;
 import com.viafoura.anagram.rest.model.PropertiesHolder;
@@ -31,48 +31,48 @@ public class AnagramService {
 	 * @param string1
 	 * @param string2
 	 * @return
-	 * @throws AnagramExcetion
+	 * @throws AnagramException
 	 * 
 	 *                         This method compares if 2 strings are anagrams.
 	 */
-	public CompareAnagramResult validateAndCompareAnagram(String string1, String string2) throws AnagramExcetion {
+	public CompareAnagramResult validateAndCompareAnagram(String string1, String string2) throws AnagramException {
 		if (AnagramValidator.validateNotNull(string1) && AnagramValidator.validateNotNull(string2)) {
 			AnagramValidator.isValidPattern(getProperties(), string1, string2);
 			CompareAnagramResult anagramResult = new CompareAnagramResult();
 			anagramResult.setAreAnagrams(isAnagram(string1, string2));
 			return anagramResult;
 		} else {
-			throw new AnagramExcetion(getProperties().getProperty("invalid_input"));
+			throw new AnagramException(getProperties().getProperty("invalid_input"));
 		}
 	}
 
 	/**
 	 * @param string1
 	 * @return
-	 * @throws AnagramExcetion
+	 * @throws AnagramException
 	 * 
 	 *                         This method permutes all possible combinations of
 	 *                         anagrams for the given string.
 	 */
-	public PermuteAnagramsResult validateAndPermuteAnagram(String string1) throws AnagramExcetion {
+	public PermuteAnagramsResult validateAndPermuteAnagram(String string1) throws AnagramException {
 		if (AnagramValidator.validateNotNull(string1)) {
 			PermuteAnagramsResult anagramsResult = new PermuteAnagramsResult();
 			AnagramValidator.isValidPattern(getProperties(), string1);
 			anagramsResult.setAnagrams(permuteAnagrams(string1));
 			return anagramsResult;
 		} else {
-			throw new AnagramExcetion(getProperties().getProperty("invalid_input"));
+			throw new AnagramException(getProperties().getProperty("invalid_input"));
 		}
 	}
 
 	/**
 	 * @param string
 	 * @return
-	 * @throws AnagramExcetion
+	 * @throws AnagramException
 	 * 
 	 *                         This method contains logic for permutation of anagram
 	 */
-	public List<String> permuteAnagrams(String string) throws AnagramExcetion {
+	public List<String> permuteAnagrams(String string) throws AnagramException {
 		List<String> list = new ArrayList<String>();
 		if (string.length() > 1) {
 			for (int i = 0; i <= string.length() - 1; i++) {

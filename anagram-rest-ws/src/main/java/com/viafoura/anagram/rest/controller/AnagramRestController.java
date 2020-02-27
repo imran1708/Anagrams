@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viafoura.anagram.rest.exception.AnagramException;
 import com.viafoura.anagram.rest.model.CompareAnagramResult;
 import com.viafoura.anagram.rest.model.PermuteAnagramsResult;
 import com.viafoura.anagram.rest.service.AnagramService;
@@ -36,7 +37,7 @@ public class AnagramRestController {
 	 */
 	@GetMapping("/anagrams/{string1}/{string2}")
 	public CompareAnagramResult getAnagramsComparision(@PathVariable String string1, @PathVariable String string2)
-			throws Exception {
+			throws AnagramException {
 		return anagramService.validateAndCompareAnagram(string1, string2);
 	}
 
@@ -51,7 +52,7 @@ public class AnagramRestController {
 	 *                   string is invalid.
 	 */
 	@GetMapping("/anagrams/{string1}")
-	public PermuteAnagramsResult getAnagramsPermutation(@PathVariable String string1) throws Exception {
+	public PermuteAnagramsResult getAnagramsPermutation(@PathVariable String string1) throws AnagramException {
 		return anagramService.validateAndPermuteAnagram(string1);
 	}
 }

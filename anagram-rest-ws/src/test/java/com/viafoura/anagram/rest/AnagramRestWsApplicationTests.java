@@ -19,9 +19,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.viafoura.anagram.rest.controller.AnagramRestController;
+import com.viafoura.anagram.rest.exception.AnagramException;
 import com.viafoura.anagram.rest.model.CompareAnagramResult;
 import com.viafoura.anagram.rest.model.PermuteAnagramsResult;
-import com.viafoura.anagram.rest.service.AnagramService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(AnagramRestController.class)
@@ -30,14 +30,11 @@ class AnagramRestWsApplicationTests {
 	private MockMvc mvc;
 
 	@MockBean
-	private AnagramService anagramService;
-
-	@MockBean
 	private AnagramRestController anagramRestController;
 
 	@Test
 	void badRequestTest() throws Exception {
-		given(anagramRestController.getAnagramsComparision("m@ry", "a@my")).willThrow(Exception.class);
+		given(anagramRestController.getAnagramsComparision("m@ry", "a@my")).willThrow(AnagramException.class);
 
 		mvc.perform(get("/anagrams/m@ry/a@my").contentType(APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}

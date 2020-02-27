@@ -25,7 +25,7 @@ public class AnagramExceptionHandler {
 	 *                     This method returns 400 error as response when
 	 *                     AnagramException occurs in the application.
 	 */
-	@ExceptionHandler(AnagramExcetion.class)
+	@ExceptionHandler(AnagramException.class)
 	public void invalidAnagramInout(HttpServletResponse response) throws IOException {
 		response.sendError(HttpStatus.BAD_REQUEST.value());
 	}
